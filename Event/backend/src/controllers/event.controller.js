@@ -1,6 +1,6 @@
 const eventModel = require('../models/event.model');
 const storageService = require('../services/storage.service');
-const likeModel = require("../models/likes.model")
+// const likeModel = require("../models/likes.model")
 const saveModel = require("../models/save.model")
 const { v4: uuid } = require("uuid")
 
@@ -31,45 +31,45 @@ async function geteventItems(req, res) {
 }
 
 
-async function likeevent(req, res) {
-    const { eventId } = req.body;
-    const user = req.user;
+// async function likeevent(req, res) {
+//     const { eventId } = req.body;
+//     const user = req.user;
 
-    const isAlreadyLiked = await likeModel.findOne({
-        user: user._id,
-        event: eventId
-    })
+//     const isAlreadyLiked = await likeModel.findOne({
+//         user: user._id,
+//         event: eventId
+//     })
 
-    if (isAlreadyLiked) {
-        await likeModel.deleteOne({
-            user: user._id,
-            event: eventId
-        })
+//     if (isAlreadyLiked) {
+//         await likeModel.deleteOne({
+//             user: user._id,
+//             event: eventId
+//         })
 
-        await eventModel.findByIdAndUpdate(eventId, {
-            $inc: { likeCount: -1 }
-        })
+//         await eventModel.findByIdAndUpdate(eventId, {
+//             $inc: { likeCount: -1 }
+//         })
 
-        return res.status(200).json({
-            message: "event unliked successfully"
-        })
-    }
+//         return res.status(200).json({
+//             message: "event unliked successfully"
+//         })
+//     }
 
-    const like = await likeModel.create({
-        user: user._id,
-        event: eventId
-    })
+//     const like = await likeModel.create({
+//         user: user._id,
+//         event: eventId
+//     })
 
-    await eventModel.findByIdAndUpdate(eventId, {
-        $inc: { likeCount: 1 }
-    })
+//     await eventModel.findByIdAndUpdate(eventId, {
+//         $inc: { likeCount: 1 }
+//     })
 
-    res.status(201).json({
-        message: "event liked successfully",
-        like
-    })
+//     res.status(201).json({
+//         message: "event liked successfully",
+//         like
+//     })
 
-}
+// }
 
 async function saveevent(req, res) {
 
@@ -133,7 +133,6 @@ async function getSaveevent(req, res) {
 module.exports = {
     createevent,
     geteventItems,
-    likeevent,
     saveevent,
     getSaveevent
 }

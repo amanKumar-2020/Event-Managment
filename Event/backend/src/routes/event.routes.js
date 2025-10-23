@@ -23,9 +23,9 @@ router.get("/",
     eventController.geteventItems)
 
 
-router.post('/like',
-    authMiddleware.authUserMiddleware,
-    eventController.likeevent)
+// router.post('/like',
+//     authMiddleware.authUserMiddleware,
+//     eventController.likeevent)
 
 
 router.post('/save',
